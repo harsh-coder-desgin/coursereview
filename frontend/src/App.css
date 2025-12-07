@@ -1,0 +1,219 @@
+@import "tailwindcss";
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+select option {
+  background-color: #f9f9f9; 
+}
+ 
+.my-active{
+   background-image: url("/dashboardactivelogo.png");
+  background-size: contain; 
+  background-repeat: no-repeat;
+  background-size: 36px 37px;
+  background-position: 10px 1px;
+}
+
+.my-active2{
+   background-image: url("/Screenshot 2025-10-01 175701.png");
+  background-size: contain; 
+  background-repeat: no-repeat;
+  background-size: 33px 27px;
+  background-position: 10px 6px;
+}
+
+.my-active3{
+   background-image: url("/Screenshot 2025-10-01 175727.png");
+  background-size: contain; 
+  background-repeat: no-repeat;
+  background-size: 32px 29px;
+  background-position: 9px 6px;
+}
+
+.my-active4{
+  background-image: url("/Screenshot 2025-10-01 175711.png");
+  background-size: contain; 
+  background-repeat: no-repeat;
+  background-size: 32px 25px;
+  background-position: 11px 7px;
+}
+
+.my-active5{
+  background-image: url("/Screenshot 2025-10-02 191352.png");
+  background-size: contain; 
+  background-repeat: no-repeat;
+  background-size: 25px 21px;
+  background-position: 13px 10px;
+}
+
+.my-element {
+  position: relative; 
+ }
+
+.my-element::before {
+   content: "";
+  position: absolute;
+  top: 5px;           
+  left: 12px;         
+  width: 32px;   
+  height: 31px;   
+  background-image: url("/dashbordlogo.png");
+  background-size: contain; 
+  background-repeat: no-repeat;
+}
+
+.my-element:hover::before {
+  content: "";
+  position: absolute;
+  top: 0px;         
+  left: 10px;       
+  width: 36px; 
+  height: 39px; 
+  background-image: url("/dashboardactivelogo.png");
+  background-size: contain; 
+  background-repeat: no-repeat;
+}
+
+.my-element2 {
+  position: relative; 
+}
+
+.my-element2::before {
+   content: "";
+  position: absolute;
+  top: 5px;           
+  left: 12px;         
+  width: 32px;   
+  height: 31px;   
+  background-image: url("/createcourse.png");
+  background-size: contain; 
+  background-repeat: no-repeat;
+}
+
+.my-element2:hover::before {
+  content: "";
+  position: absolute;
+  top: 6px;           
+  left: 10px;         
+  width: 34px;   
+  height: 39px;   
+  background-image: url("/Screenshot 2025-10-01 175701.png");
+  background-size: contain; 
+  background-repeat: no-repeat;
+}
+
+.my-element3 {
+  position: relative; 
+}
+
+.my-element3::before {
+   content: "";
+  position: absolute;
+  top: 6px;           
+  left: 10px;         
+  width: 29px;   
+  height: 29px;   
+  background-image: url("/allcourselogo.png");
+  background-size: contain; 
+  background-repeat: no-repeat;
+}
+
+.my-element3:hover::before {
+  content: "";
+  position: absolute;
+  top: 6px;          
+  left: 9px;        
+  width: 32px;  
+  height: 32px;  
+  background-image: url("/Screenshot 2025-10-01 175727.png");
+  background-size: contain; 
+  background-repeat: no-repeat;
+}
+
+.my-element4 {
+  position: relative;
+}
+
+.my-element4::before {
+  content: "";
+  position: absolute;
+  top: 5px;           
+  left: 9px;         
+  width: 29px;   
+  height: 29px;   
+  background-image: url("/setting.png");
+  background-size: contain; 
+  background-repeat: no-repeat;
+}
+
+.my-element4:hover::before {
+  content: "";
+  position: absolute;
+  top: 7px;           
+  left: 11px;         
+  width: 32px;   
+  height: 32px;   
+  background-image: url("/Screenshot 2025-10-01 175711.png");
+  background-size: contain; 
+  background-repeat: no-repeat;
+}
+
+.my-element5 {
+  position: relative; 
+}
+
+.my-element5::before {
+   content: "";
+  position: absolute;
+  top: 8px;           
+  left: 11px;         
+  width: 30px;   
+  height: 30px;   
+  background-image: url("/signout.png");
+  background-size: contain; 
+  background-repeat: no-repeat;
+}
+
+.my-element5:hover::before {
+  content: "";
+  position: absolute;
+  top: 10px;           
+  left: 13px;         
+  width: 24px;   
+  height: 24px;   
+  background-image: url("/Screenshot 2025-10-02 191352.png");
+  background-size: contain; 
+  background-repeat: no-repeat;
+}
+
+@keyframes scroll-reverse {
+  0% {
+    transform: translateX(0);
+  }
+
+  40% {
+    transform: translateX(-20%);
+  }
+}
+
+.animate-scroll-reverse {
+  animation: scroll-reverse 15s linear infinite alternate;
+}
+
+@keyframes scroll-reviews {
+  0% {
+    transform: translateX(-2000px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-scroll-reviews {
+  display: flex;
+  animation: scroll-reviews 50s linear infinite alternate;
+}
+

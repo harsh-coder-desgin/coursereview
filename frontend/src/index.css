@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+  
+select option {
+  background-color: #e5e7eb; 
+  color: #111827;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@keyframes scroll-reverse {
+  0% {
+    transform: translateX(0);
+  }
+
+  40% {
+    transform: translateX(-20%);
+  }
+}
+
+.animate-scroll-reverse {
+  animation: scroll-reverse 15s linear infinite alternate;
+}
+
+@keyframes scroll-reviews {
+  0% {
+    transform: translateX(-2000px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-scroll-reviews {
+  display: flex;
+  animation: scroll-reviews 50s linear infinite alternate;
+}
