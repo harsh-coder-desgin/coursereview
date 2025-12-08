@@ -112,7 +112,7 @@ function CourseDetail() {
           {activeTab === "Courses" && (
             <div className="mt-6">
               <h2 className="text-lg font-semibold mb-3">About Course</h2>
-              <p className="text-gray-500 leading-relaxed">
+              <p className="text-gray-500 leading-relaxed max-w-2xl break-words">
                 {courses?.description}
               </p>
 

@@ -2,7 +2,7 @@ import { Router } from "express"
 import { upload } from "../middlewares/multer.middlewares.js"
 import { verifyJWT } from "../middlewares/tokenverfiy.middleware.js"
 import { addcourse, coursebytags, courseoverviewdashboard, deletecourse, editcourse, editcourseimgae, getallcourse,
-getonecoursereview, showcourse,avreageratingdata,uploadcourseimage } from "../controllers/course.controller.js";
+getonecoursereview, showcourse,avreageratingdata,uploadcourseimage,onecourserating,serachcoursebycreator } from "../controllers/course.controller.js";
 
 const router = Router()
 
@@ -24,5 +24,14 @@ router.route("/coursebytags").post(verifyJWT,coursebytags)
 
 // calculate averagerating
 router.route("/avreageratingdata").post(verifyJWT,avreageratingdata)
+
+//calculate one course rating
+router.route("/onecourserating").post(verifyJWT,onecourserating)
+
+//serachcourse coursetags
+router.route("/searchonecreatorcoruse").post(verifyJWT,serachcoursebycreator)
+
+
+
 
 export default router

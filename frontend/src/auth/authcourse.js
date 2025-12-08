@@ -125,6 +125,24 @@ const Course = {
             console.log(error);
             throw error
         }
+    },
+
+    onecourserating: async (data) => {
+        try {
+            return await axios.post(`${API}/onecourserating`, data, { withCredentials: true, })
+        } catch (error) {
+            console.log(error);
+            throw error
+        }
+    },
+
+    searchonecreatorcoruse: async (data) => {
+        try {
+            return await axios.post(`${API}/searchonecreatorcoruse`, data, { withCredentials: true, })
+        } catch (error) {
+            console.log(error);
+            throw error
+        }
     }
 
 };

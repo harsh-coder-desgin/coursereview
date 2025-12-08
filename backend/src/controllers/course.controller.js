@@ -568,10 +568,6 @@ const getonecoursereview = asyncHandler(async (req, res) => {
         courseid: courseId
     })
 
-    if (!getcourse || getcourse.length === 0) {
-        throw new ApiError(404, "No reviews available for the selected course.");
-    }
-
     return res
         .status(200)
         .json(new ApiResponse(200, getcourse, "Course fetched successfully"));
@@ -581,12 +577,13 @@ const getonecoursereview = asyncHandler(async (req, res) => {
 const coursebytags = asyncHandler(async (req, res) => {
 
     const { tags } = req.body
+    
     const ownerid = req.users._id.toString()
 
     let query = { ownerid: ownerid };
 
-    if (tags && tags.trim() !== "") {
-        query.tags = tags.toLowerCase();
+    if (tags && tags.trim() !== "" && tags !== "All Categories") {
+        query.coursecategory = tags
     }
 
     const findcoursebytags = await Course.find(query);
@@ -599,7 +596,128 @@ const coursebytags = asyncHandler(async (req, res) => {
         .json(new ApiResponse(200, findcoursebytags, "All courses fetched successfully"));
 })
 
+// one course rating and monlty review
+const onecourserating =asyncHandler(async(req,res)=>{
+    
+    const { rating ,id} = req.body
+    console.log(req.body);
+    
+    const ownerid = req.users._id
+
+    let Ago;
+    let Ago2;
+    if (rating === "Year") {
+        Ago = new Date(Date.now() - 365 * 24 * 60 * 60 * 1000);
+        Ago2 = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000); 
+    }
+
+    if (rating === "Week") {
+        Ago = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+        Ago2 = new Date(Date.now() - 1 * 24 * 60 * 60 * 1000);
+    }
+
+    if (rating === "Month") {
+        Ago2 = new Date(Date.now() - 8 * 24 * 60 * 60 * 1000);
+        Ago = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+    }
+
+    let monthchart = new Date(Date.now() - 60 * 24 * 60 * 60 * 1000);
+
+    const creatorcourse = await Course.find({
+        // ownerid: ownerid,
+        _id:id,
+    });
+    const courserating = creatorcourse.rating || null
+    console.log(courserating);
+
+    // const latestcourse = await Course.find({
+    //     _id:id,
+    //     createdAt: { $gte: monthchart }
+    // }).select("-coursetype -courseyear -courselength -totalreview -description -yturl -whatlearnformcourse -tags -newcourse -courseimage -courseimagePublicId -ownerid -ownername -price -discount -discountPrice -finalPrice")
+    
+        
+    const findreviewbytags = await Review.find({
+        _id: id,
+        createdAt: { $gte: Ago, $lt: Ago2 }
+    });
+
+    const findreview = await Review.find({ _id: id });
+    let onestar = 0
+    let twostar = 0
+    let threestar = 0
+    let fourstar = 0
+    let fivestar = 0
+    const allrating = []
+
+    if (findreview.length !== 0) {
+        findreview.forEach(course => {
+            allrating.push(course.userrating)
+    
+            if (course.userrating <= 1.5 && course.userrating != 0) {
+                onestar += 1
+            }
+            if (course.userrating < 2.5 && course.userrating > 1.5) {
+                twostar += 1
+            }
+            if (course.userrating < 3.5 && course.userrating > 2.5) {
+                threestar += 1
+            }
+            if (course.userrating < 4.5 && course.userrating > 3.5) {
+                fourstar += 1
+            }
+            if (course.userrating === 5) {
+                fivestar += 1
+            }
+    
+        });
+    }
+
+    const onestarpercentage = Math.floor(onestar * (100 % courserating))
+    const twostarpercentage = Math.floor(twostar * (100 % courserating))
+    const threestarpercentage = Math.floor(threestar * (100 % courserating))
+    const fourstarpercentage = Math.floor(fourstar * (100 % courserating))
+    const fivestarpercentage = Math.floor(fivestar * (100 % courserating))
+    const monthlyreview = Array(12).fill(0);
+
+    if (findreview.length !== 0) {
+        findreview.forEach(course => {
+            const createdAt = new Date(course.createdAt);
+            const month = createdAt.getMonth(); 
+            monthlyreview[month]++; 
+        });        
+    }
+
+    return res
+        .status(200)
+        .json(new ApiResponse(200, { findreviewbytags,courserating, onestarpercentage, twostarpercentage,allrating, threestarpercentage, fourstarpercentage, fivestarpercentage,monthlyreview }, "Rating fetched successfully"));
+})
+
+//serachcoursebycreator
+const serachcoursebycreator = asyncHandler(async (req, res) => {
+   
+    const  {course,category}  = req.body    
+    const ownerid = req.users._id.toString()
+
+    const searchStrings = course.trim().split(/\s+/); 
+    
+    let query={ ownerid:ownerid ,$or: searchStrings.map(str => ({
+            coursetitle: { $regex: str, $options: "i" }
+        }))}
+
+    if (category && category.trim() !== "" && category !== "All Categories") {
+        query.coursecategory = category
+    }    
+
+    const findcoursename = await Course.find(query);
+   
+    return res.status(201).json(
+        new ApiResponse(200, findcoursename, "Course search results fetched successfully")
+    )
+})
+
+
+
 export {
     addcourse, editcourse, editcourseimgae, getallcourse, showcourse, courseoverviewdashboard, uploadcourseimage,
-    deletecourse, latestreview, getonecoursereview, coursebytags, avreageratingdata
+    deletecourse, latestreview, getonecoursereview, coursebytags, avreageratingdata,onecourserating,serachcoursebycreator
 }

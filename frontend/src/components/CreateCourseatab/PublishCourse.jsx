@@ -25,9 +25,9 @@ function PublishCourse() {
         typeof value === "string" ? value.replace(/^"|"$/g, "") : value,
       ])
     );
-
+    
     try {
-      const data = await authcourse.addcourse({ whatlearnformcourse: not[0], ...cleanData, courseimage })
+      const data = await authcourse.addcourse({ whatlearnformcourse: not, ...cleanData, courseimage })
       if (data) {
         localStorage.removeItem('courseData');
         finalcoursedata = ''

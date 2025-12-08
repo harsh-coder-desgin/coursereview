@@ -15,7 +15,7 @@ function CourseRatingChart({latestcourse}) {
   console.log(latestcourse);
   
   const data = {
-    labels: latestcourse.length > 0 ? latestcourse.map((c)=>(c.coursetitle)) : ["Course","Course","Course"],
+    labels: latestcourse.length > 0 ? latestcourse.map((c)=>(c.coursecategory)) : ["Course","Course","Course"],
     datasets: [
       {
         label: "Course Rating",

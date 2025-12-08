@@ -73,6 +73,10 @@ function AdvanceInformation({ course }) {
       localStorage.removeItem("tabname");
     }
   }
+// "[{\"title\":\"Here’s a clear description you can use for a Course Review Website:\",
+// \"lessons\":[\"Here’s a clear description you can use for a Course Review Website:\",\"Here’s a clear description you can use for a Course Review Website:\"]},
+// {\"title\":\"Here’s a clear description you can use for a Course Review Website:\",
+// \"lessons\":[\"Here’s a clear description you can use for a Course Review Website:\",\"Here’s a clear description you can use for a Course Review Website:\"]}]"
 
   const handleTitleChange = (index, event) => {
     const newTopics = [...whatlearn];

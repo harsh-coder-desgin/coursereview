@@ -65,11 +65,13 @@ function ExploreCourse() {
       {courses.length > 0 ? (
         <div className="grid grid-cols-4 gap-1 -mt-12 w-360 ml-20">
           {courses.map((course) => (
+            <div key={course._id}>
            <Link to={`/coursedetail/${course._id}`}>
-              <div key={course._id} className="mt-7 cursor-pointer">
+              <div className="mt-7 cursor-pointer">
                 <CourseCard course={course} />
               </div>
             </Link>
+            </div>
           ))}
         </div>
       ) : (
