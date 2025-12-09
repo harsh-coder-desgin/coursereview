@@ -143,6 +143,15 @@ const Course = {
             console.log(error);
             throw error
         }
+    },
+    
+    updateprice: async (courseId) => {
+        try {
+            return await axios.post(`${API}/updateprice${courseId}`, data, { withCredentials: true, })
+        } catch (error) {
+            console.log(error);
+            throw error
+        }
     }
 
 };

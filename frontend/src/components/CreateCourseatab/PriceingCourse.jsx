@@ -56,6 +56,7 @@ function PriceingCourse({ course }) {
             <Select
               {...register("coursetype", {
               })}
+              disabled={course?.coursetype}
               err={errors?.coursetype?.message}
               options={[
                 "Free",

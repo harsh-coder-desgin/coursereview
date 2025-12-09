@@ -11,13 +11,13 @@ function CreatorHeading({ heading }) {
         <h1 className='text-2xl font-semibold'>{heading}</h1>
       </div>
       <div className='flex ml-15 mt-5 mr-6'>
-        <Input
+        {/* <Input
           placeholder="Search"
           className=" bg-[#EFEFEF] px-5 py-2 w-80 placeholder:font-light mr-2"
-        />
-        <Link to="/creator/setting">
+        /> */}
+        {/* <Link to="/creator/setting">
           <img src={user?.profile || '/creatorprofile1.png'} alt='profile' className='h-10 w-11 bordr object-cover rounded-full ' />
-        </Link>
+        </Link> */}
       </div>
     </div>
   )

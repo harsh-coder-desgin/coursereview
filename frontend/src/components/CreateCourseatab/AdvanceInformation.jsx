@@ -6,17 +6,18 @@ import { useForm } from "react-hook-form"
 import { useDispatch } from 'react-redux'
 import { addcoursedata, changetab } from '../../store/addCourseSlice'
 import authcourse from '../../auth/authcourse'
-function AdvanceInformation({ course }) {
+function  AdvanceInformation({ course }) {
 
   const dispatch = useDispatch()
   let coursedata = localStorage.getItem("courseData")
   const obj = JSON.parse(coursedata);
+  console.log(course?.whatlearnformcourse);
 
   const [previewImage, setPreviewImage] = useState(course?.courseimage || null);
   const [error, SetError] = useState('')
-  const [whatlearn, SetWhatlearn] = useState([
-    course?.whatlearn || { title: "", lessons: Array(5).fill("") },
-  ]);
+  const [whatlearn, SetWhatlearn] = useState(
+    course?.whatlearnformcourse || [{ title: "", lessons: Array(5).fill("") }],
+  );
 
   useEffect(() => {
     if (obj?.description) {
@@ -73,10 +74,6 @@ function AdvanceInformation({ course }) {
       localStorage.removeItem("tabname");
     }
   }
-// "[{\"title\":\"Here’s a clear description you can use for a Course Review Website:\",
-// \"lessons\":[\"Here’s a clear description you can use for a Course Review Website:\",\"Here’s a clear description you can use for a Course Review Website:\"]},
-// {\"title\":\"Here’s a clear description you can use for a Course Review Website:\",
-// \"lessons\":[\"Here’s a clear description you can use for a Course Review Website:\",\"Here’s a clear description you can use for a Course Review Website:\"]}]"
 
   const handleTitleChange = (index, event) => {
     const newTopics = [...whatlearn];
@@ -155,7 +152,7 @@ function AdvanceInformation({ course }) {
             </div>
             {error && <p className='text-red-500 text-center font-semibold text-lg mt-2 ml-2'>{error}</p>}
 
-            {whatlearn.map((topic, topicIndex) => (
+            {whatlearn?.map((topic, topicIndex) => (
               <div key={topicIndex}>
                 {topicIndex != 0 && <div className='flex justify-end'>
                   <Button textColor='text-[#2C91D2]' bgColor=''
@@ -211,7 +208,7 @@ function AdvanceInformation({ course }) {
                   </div>
                 </div>
 
-                {topic.lessons.map((lesson, lessonIndex) => (
+                 {topic?.lessons.map((lesson, lessonIndex) => (
                   <div key={lessonIndex} className='flex'>
                     {lessonIndex != 0 && <Button className='absolute right-282' bgColor='' type="button" textColor='text-red-400'
                       onClick={() => {
@@ -232,7 +229,7 @@ function AdvanceInformation({ course }) {
                     </Button>}
                     <Input label={`${lessonIndex < 9 ? "0" : ""}${lessonIndex + 1}`} value={lesson} onChange={(e) => handleLessonChange(topicIndex, lessonIndex, e)} className="flex flex-col border border-gray-300 w-full mt-2 p-2 pl-4 placeholder:text-sm" placeholder="What you will teach in this course.." required />
                   </div>
-                ))}
+                ))} 
               </div>
             ))}
             <div className='flex justify-between mt-10 pb-12'>

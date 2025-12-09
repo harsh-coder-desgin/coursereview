@@ -101,7 +101,7 @@ function AllCourse() {
                                 <CourseCard course={course} />
                             </div>
                         ))}
-                    </div> : <h1 class="text-center mt-20 mr-17 text-2xl font-semibold text-gray-700">
+                    </div> : <h1 className="text-center mt-20 mr-17 text-2xl font-semibold text-gray-700">
                             No course found
                             </h1>
                             }

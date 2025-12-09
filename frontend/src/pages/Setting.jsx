@@ -30,7 +30,8 @@ function Setting() {
 
   const [showCurrent, setShowCurrent] = useState(false);
   const [showNew, setShowNew] = useState(false);
-  const [showConfirm, setShowConfirm] = useState(false); const [previewImage, setPreviewImage] = useState(usersdata?.data?.profile || null);
+  const [showConfirm, setShowConfirm] = useState(false); 
+  const [previewImage, setPreviewImage] = useState(usersdata?.data?.profile || null);
 
   const submit = async (data) => {
     try {

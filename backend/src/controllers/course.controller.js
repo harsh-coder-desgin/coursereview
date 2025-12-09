@@ -124,124 +124,92 @@ const uploadcourseimage = asyncHandler(async (req, res) => {
 const editcourse = asyncHandler(async (req, res) => {
 
     const courseId = req.params.id;
+    console.log("Params:", req.params);
 
-    function isValidSocialProfileURL(url, platform) {
 
-        try {
-            const myURL = new URL(url);
-            const pathSegments = myURL.pathname.split("/").filter(Boolean);
-
-            if (platform === "youtube") {
-                return (
-                    myURL.hostname === "www.youtube.com" &&
-                    myURL.pathname.startsWith("/@") &&
-                    pathSegments[0].startsWith("@") &&
-                    pathSegments.length === 1 &&
-                    pathSegments[0].length > 1 &&
-                    myURL.protocol === 'https:'
-                );
-            }
-            return false;
-        } catch (error) {
-            return false;
-        }
-    }
-
-    const { coursetitle, courselength, description, yturl, whatlearnformcourse, price,
-        tags, coursetype } = req.body
-
-    const discount = (coursetype === "free" && Number(price) > 0) ? 100 : req.body.discount;
-    const discountPrice = (coursetype === "free") ? 0 : req.body.discountPrice;
-    const vaildornotyoutube = isValidSocialProfileURL(yturl, "youtube")
+    const { title, subtitle, coursecategory, coursetopic, courselanguage, courselevel, courseduration } = req.body
+    console.log(req.body,courseId);
+    
+    // const discount = (coursetype === "free" && Number(price) > 0) ? 100 : req.body.discount;
+    // const discountPrice = (coursetype === "free") ? 0 : req.body.discountPrice;
 
     if (
-        [coursetitle, courselength, description, whatlearnformcourse,
-            tags].some((field) => field?.trim() === "")
+        [title, subtitle, coursecategory, coursetopic, courselanguage, courselevel, courseduration
+            ].some((field) => field?.trim() === "")
     ) {
-        throw new ApiError(400, "Missing required fields. Please provide all necessary course details including: coursetitle, courselength, description, yturl, whatlearnformcourse, tags, courseimage.")
+        throw new ApiError(400, "Missing required fields. Please provide all necessary course details including: title, subtitle, coursecategory, coursetopic, courselanguage, courselevel, courseduration,")
     }
 
-    if (yturl.trim().length > 0) {
-        console.log(yturl);
-
-        if (vaildornotyoutube === false) {
-            console.log(vaildornotyoutube);
-
-            throw new ApiError(400, "The provided YouTube URL is invalid. Please enter a valid YouTube channel");
-        }
-    }
-
-    if (coursetitle.trim().length < 5) {
+    if (title.trim().length < 5) {
         throw new ApiError(400, "Course title must be at least 5 characters long.");
     }
 
-    if (courselength.trim().length > 10) {
-        throw new ApiError(400, "Course duration must not exceed 10 characters.");
+    if (subtitle.trim().length < 5) {
+        throw new ApiError(400, "Course subtitle must be at least 5 characters long.");
     }
 
-    if (description.length < 25 || whatlearnformcourse.length < 25) {
-        throw new ApiError(400, "Both 'What you'll learn' and course description must be at least 25 characters long.");
+    if (coursetopic.trim().length < 5) {
+        throw new ApiError(400, "Course coursetopic must be at least 5 characters long.");
     }
 
-    let cleanedWhatLearn = "";
-    if (whatlearnformcourse) {
-        let cleaned = whatlearnformcourse.trim();
-        cleaned = cleaned.replace(/ {2,}/g, " ");
-        cleaned = cleaned.replace(/^\s*$/gm, "");
-        cleaned = cleaned.replace(/\n{2,}/g, "\n");
-        cleanedWhatLearn = cleaned.trim();
-    }
+    // let cleanedWhatLearn = "";
+    // if (whatlearnformcourse) {
+    //     let cleaned = whatlearnformcourse.trim();
+    //     cleaned = cleaned.replace(/ {2,}/g, " ");
+    //     cleaned = cleaned.replace(/^\s*$/gm, "");
+    //     cleaned = cleaned.replace(/\n{2,}/g, "\n");
+    //     cleanedWhatLearn = cleaned.trim();
+    // }
 
-    let finalPrice = price;
+    // let finalPrice = price;
 
-    if (coursetype === "paid") {
-        if (Number(price) <= 0) {
-            throw new ApiError(400, "Course price must more than 0");
-        }
-    }
+    // if (coursetype === "paid") {
+    //     if (Number(price) <= 0) {
+    //         throw new ApiError(400, "Course price must more than 0");
+    //     }
+    // }
 
-    if (Number(price) >= 10000000) {
-        throw new ApiError(400, "Course price must be less than ₹10,000,000");
-    }
+    // if (Number(price) >= 10000000) {
+    //     throw new ApiError(400, "Course price must be less than ₹10,000,000");
+    // }
 
-    if (Number(discount) < 0 || Number(discountPrice) < 0) {
-        throw new ApiError(400, "Discount cannot be negative.");
-    }
+    // if (Number(discount) < 0 || Number(discountPrice) < 0) {
+    //     throw new ApiError(400, "Discount cannot be negative.");
+    // }
 
-    if (Number(discount) > 100) {
-        throw new ApiError(400, "Discount cannot be more than 100%.");
-    }
+    // if (Number(discount) > 100) {
+    //     throw new ApiError(400, "Discount cannot be more than 100%.");
+    // }
 
-    if (Number(discountPrice) > Number(price)) {
-        console.log(discountPrice, price);
+    // if (Number(discountPrice) > Number(price)) {
+    //     console.log(discountPrice, price);
 
-        throw new ApiError(400, "Discount amount cannot be greater than the course price.");
-    }
+    //     throw new ApiError(400, "Discount amount cannot be greater than the course price.");
+    // }
 
-    if (Number(price) > 0 && (Number(discount) > 0 || Number(discountPrice) > 0)) {
-        if (Number(discount) > 0) {
-            const discountValue = (discount * price) / 100;
-            finalPrice = price - discountValue;
-        }
-        else if (Number(discountPrice) > 0) {
-            finalPrice = price - discountPrice;
-        }
-    }
+    // if (Number(price) > 0 && (Number(discount) > 0 || Number(discountPrice) > 0)) {
+    //     if (Number(discount) > 0) {
+    //         const discountValue = (discount * price) / 100;
+    //         finalPrice = price - discountValue;
+    //     }
+    //     else if (Number(discountPrice) > 0) {
+    //         finalPrice = price - discountPrice;
+    //     }
+    // }
 
     const updatedCourse = await Course.findByIdAndUpdate(
         courseId,
         {
             $set: {
-                coursetitle,
-                courselength,
-                description: description.trim().replace(/\s{2,}/g, " "),
-                whatlearnformcourse: cleanedWhatLearn,
-                yturl: yturl || ' ',
-                tags: tags.toLowerCase(),
-                price: price || 0,
-                discount: discount || 0,
-                discountPrice: discountPrice || 0,
-                finalPrice: finalPrice || 0
+                coursetitle:title,
+                courselength:courseduration,
+                coursesubtitle:subtitle,
+                coursecategory:coursecategory,
+                coursetopic:coursetopic,
+                courselanguage:courselanguage,
+                courselevel:courselevel,
+                // description: description.trim().replace(/\s{2,}/g, " "),
+                // whatlearnformcourse: cleanedWhatLearn,
             }
         }
         ,
@@ -265,10 +233,15 @@ const editcourse = asyncHandler(async (req, res) => {
 const editcourseimgae = asyncHandler(async (req, res) => {
 
     const courseId = req.params.id;
+    const {whatlearnformcourse} =req.body
     const courseLocalPath = req.files?.courseimage?.[0];
 
     if (!courseLocalPath) {
         throw new ApiError(400, "Course image is required. Please upload a valid image file");
+    }
+
+    if (!whatlearnformcourse) {
+        throw new ApiError(400, "whatlearnformcourse is required");
     }
 
     const currentUser = await Course.findById(courseId);
@@ -289,6 +262,7 @@ const editcourseimgae = asyncHandler(async (req, res) => {
             $set: {
                 courseimage: imagecourse.url,
                 courseimagePublicId: imagecourse.public_id,
+                whatlearnformcourse:whatlearnformcourse,
             }
         },
         { new: true }
@@ -300,6 +274,64 @@ const editcourseimgae = asyncHandler(async (req, res) => {
     return res
         .status(200)
         .json(new ApiResponse(200, courseimageupdate, "Course image updated successfully"));
+})
+
+//update price and coursetype
+const updatepricecourse = asyncHandler(async(req,res)=>{
+
+    const courseId = req.params.id;
+
+    const { price, discount, coursetype } = req.body
+
+    if (
+         [price, discount, coursetype].some((field) => field?.trim() === "")
+    ) {
+        throw new ApiError(400, "Missing required fields. Please provide all necessary course details including: price, discount, coursetype")
+    }
+
+     let finalPrice = price;
+
+    if (Number(price) > 0 && (Number(discount) > 0)) {
+
+        if (Number(price) >= 10000000) {
+            throw new ApiError(400, "Course price must be less than ₹10,000,000");
+        }
+
+        if (Number(discount) < 0) {
+            throw new ApiError(400, "Discount cannot be negative.");
+        }
+
+        if (Number(discount) > 100) {
+            throw new ApiError(400, "Discount cannot be more than 100%.");
+        }
+
+        if (Number(discount) > 0) {
+            const discountValue = (discount * price) / 100;
+            finalPrice = price - discountValue;
+        }
+    }
+
+    
+    const updatedCourse = await Course.findByIdAndUpdate(
+        courseId,
+        {
+            $set: {
+                price:price,
+                discount:discount,
+                finalPrice:finalPrice,
+            }
+        }
+        ,
+        { new: true }
+    )
+
+    if (!updatedCourse) {
+        throw new ApiError(404, "Course not found. Please check the course ID and try again.");
+    }
+
+    return res
+        .status(200)
+        .json(new ApiResponse(200, updatedCourse, "Course updated successfully"));
 })
 
 //get-all-course
@@ -719,5 +751,6 @@ const serachcoursebycreator = asyncHandler(async (req, res) => {
 
 export {
     addcourse, editcourse, editcourseimgae, getallcourse, showcourse, courseoverviewdashboard, uploadcourseimage,
-    deletecourse, latestreview, getonecoursereview, coursebytags, avreageratingdata,onecourserating,serachcoursebycreator
+    deletecourse, latestreview, getonecoursereview, coursebytags, avreageratingdata,onecourserating,serachcoursebycreator,
+    updatepricecourse
 }

@@ -21,9 +21,8 @@ const courseAuthSlice = createSlice({
         
         setEditcourse: (state, action) => {            
             const course = state.courses.find(
-                (course) => course._id === action.payload
-            );
-
+                (course) => course._id === action.payload                
+            );                        
             if (course) {
                 state.edit = course 
             }
@@ -48,7 +47,7 @@ const courseAuthSlice = createSlice({
         detailcourse: (state, action) => {
             state.onecourse = action.payload
             const course = state.courses.find((course) =>
-                course._id === action.payload)
+                course._id === action.payload)              
             if (course) {
                 state.onecourse = course
             }

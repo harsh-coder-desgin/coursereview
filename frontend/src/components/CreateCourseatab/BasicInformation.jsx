@@ -1,28 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Input from '../Input'
 import Button from '../Button'
 import { useForm } from "react-hook-form"
 import Select from '../Select'
 import { useSelector, useDispatch } from 'react-redux'
 import { addcoursedata, changetab } from '../../store/addCourseSlice'
+import authcourse from '../../auth/authcourse'
 
-function BasicInformation({ course }) {
-
+function BasicInformation({course} ) {  
   const swicthtab = useSelector(state => state.addcourseAuth.tab)
 
   const dispatch = useDispatch()
   let coursedata = localStorage.getItem("courseData")
   let finalcoursedata = JSON.parse(coursedata);
+  const [message, setMessage] = useState({ text: "", type: "" });
+  
 
   const { register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
-      title: course?.title || finalcoursedata?.title && finalcoursedata?.title.replace(/^"|"$/g, "") || '',
-      subtitle: course?.subtitle || finalcoursedata?.subtitle && finalcoursedata?.subtitle.replace(/^"|"$/g, "") || '',
+      title: course?.coursetitle || finalcoursedata?.title && finalcoursedata?.title.replace(/^"|"$/g, "") || '',
+      subtitle: course?.coursesubtitle || finalcoursedata?.subtitle && finalcoursedata?.subtitle.replace(/^"|"$/g, "") || '',
       coursecategory: course?.coursecategory || finalcoursedata?.coursecategory && finalcoursedata?.coursecategory.replace(/^"|"$/g, "") || 'Programming Languages',
       coursetopic: course?.coursetopic || finalcoursedata?.coursetopic && finalcoursedata?.coursetopic.replace(/^"|"$/g, "") || '',
       courselanguage: course?.courselanguage || finalcoursedata?.courselanguage && finalcoursedata?.courselanguage.replace(/^"|"$/g, "") || 'Hindi',
       courselevel: course?.courselevel || finalcoursedata?.courselevel && finalcoursedata?.courselevel.replace(/^"|"$/g, "") || 'Beginner',
-      courseduration: course?.courseduration || finalcoursedata?.courseduration && finalcoursedata?.courseduration.replace(/^"|"$/g, "") || '1–5 hours',
+      courseduration: course?.courselength || finalcoursedata?.courseduration && finalcoursedata?.courseduration.replace(/^"|"$/g, "") || '1–5 hours',
     }
   })
 
@@ -31,8 +33,16 @@ function BasicInformation({ course }) {
   } else {
     localStorage.setItem("tabname", "basic")
   }
-  const submit = (data) => {
+  const submit = async (data) => {
     if (course) {
+      try {
+        const res = await authcourse.updatecourse({data})
+        console.log(res.data.data);
+        setMessage({ text: "Course Update successfully!", type: "success" });
+      } catch (error) {
+        console.log(error.response.data.message);
+        setMessage({ text: error.response.data.message, type: "error" });
+      }
       //update
     } else {
       dispatch(addcoursedata(data))
@@ -58,6 +68,16 @@ function BasicInformation({ course }) {
   return (
     <div className=''>
       <div className='border-b-1 border-gray-300'>
+                {message.text && (
+          <h1
+            className={`text-center text-lg font-semibold mt-3 p-3 transition-all duration-300
+      ${message.type === "success" ? "bg-green-100 text-green-700 border border-green-400" : ""}
+      ${message.type === "error" ? "bg-red-100 text-red-700 border border-red-400" : ""}`
+            }
+          >
+            {message.text}
+          </h1>
+        )} 
         <h1 className='font-bold ml-10 mt-8 mb-6 text-[21px]'>Basic information</h1>
       </div>
       <form onSubmit={handleSubmit(submit)} className='w-15/16 ml-10 mt-5 space-y-10'>

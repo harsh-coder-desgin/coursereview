@@ -32,19 +32,6 @@ function ViewCourseDetail() {
         
         dispatch(detailcourse(id))
         SetDataavreagerating(onecoursedata)
-        // if (coursedata.length === 0) {
-                
-            //  authcourse.onecourserating({Year:"Year",id})
-            //     .then((data) => {
-            //         // SetDataavreagerating(data.data.data)
-            //         console.log(data.data.data);
-            //         // dispatch(allcourse(data.data.data))
-            //     })
-            //     .catch((err) => {
-            //         console.log(err);
-            //     })   
-        // }
-        // SetCourses(coursedata)
     }, [onecoursedata])
     
     return (

@@ -2,7 +2,8 @@ import { Router } from "express"
 import { upload } from "../middlewares/multer.middlewares.js"
 import { verifyJWT } from "../middlewares/tokenverfiy.middleware.js"
 import { addcourse, coursebytags, courseoverviewdashboard, deletecourse, editcourse, editcourseimgae, getallcourse,
-getonecoursereview, showcourse,avreageratingdata,uploadcourseimage,onecourserating,serachcoursebycreator } from "../controllers/course.controller.js";
+getonecoursereview, showcourse,avreageratingdata,uploadcourseimage,onecourserating,serachcoursebycreator,
+updatepricecourse } from "../controllers/course.controller.js";
 
 const router = Router()
 
@@ -11,7 +12,9 @@ router.route("/addcourse").post(verifyJWT,addcourse)
 router.route("/addcourseimage").post(verifyJWT,upload.fields([{ name: 'courseimage', maxCount: 1 }]),uploadcourseimage)
 router.route("/updatecourse/:id").patch(verifyJWT,editcourse)
 router.route("/updatecourseimage/:id").patch(verifyJWT,upload.fields([{ name: 'courseimage', maxCount: 1 }]),editcourseimgae)
+router.route("/updateprice/:id").get(verifyJWT,updatepricecourse)
 router.route("/deletecourse/:id").get(verifyJWT,deletecourse)
+
 
 //all course,dashboard,course one get ,getcourse -- get review 
 router.route("/allcourses").get(verifyJWT,getallcourse)
