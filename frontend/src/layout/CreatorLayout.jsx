@@ -1,6 +1,6 @@
 import CreatorHeader from '../components/Header/CreaterHeader';
 import { Outlet } from 'react-router-dom';
-import { Footer } from '../components/index';
+import { Footer } from '../components/index.js';
 
 const CreatorLayout = () => {
   return (

@@ -1,11 +1,6 @@
 import { useEffect, useState } from 'react'
-import CreatorHeading from '../components/CreatorHeading'
-import { Button } from '../components'
+import { CreatorHeading, Button, BasicInformation, AdvanceInformation, PriceingCourse, PublishCourse } from '../components/index.js'
 import { useSelector, useDispatch } from 'react-redux'
-import BasicInformation from '../components/CreateCourseatab/BasicInformation'
-import AdvanceInformation from '../components/CreateCourseatab/AdvanceInformation'
-import PriceingCourse from '../components/CreateCourseatab/PriceingCourse'
-import PublishCourse from '../components/CreateCourseatab/PublishCourse'
 import { changetab } from '../store/addCourseSlice'
 
 function AddCourse() {
