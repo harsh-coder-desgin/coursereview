@@ -1,13 +1,12 @@
-import './App.css'
-import { Footer } from "./components/index"
-import { Outlet } from 'react-router-dom'
-import { UserHeader } from './components/index'
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { Outlet } from 'react-router-dom'
+import { UserHeader,Footer } from './components/index.js'
 import { userLogin } from './store/userAuthSlice'
 import { login } from './store/creatorAuthSlice'
 import authuser from "./auth/authuser"
 import authcreator from "./auth/authcreator"
+import './App.css'
 
 function App() {
   

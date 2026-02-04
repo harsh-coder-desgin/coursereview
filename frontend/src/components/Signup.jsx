@@ -6,10 +6,10 @@ import { useDispatch } from 'react-redux'
 import authcreator from '../auth/authcreator'
 import authuser from "../auth/authuser"
 import { login as authlogin } from '../store/creatorAuthSlice'
+
 function Signup() {
   const navigate = useNavigate()
-
-  const { register, handleSubmit } = useForm()
+  const { register, handleSubmit, formState: { errors } } = useForm()
   const dispatch = useDispatch()
   const [showPassword, setShowPassword] = useState(false);
   const [preview, setPreview] = useState(null);
@@ -19,14 +19,11 @@ function Signup() {
   const handleChange = (e) => {
     setFiles(e.target.files[0], e.target.files);
     console.log(files);
-
   };
   const create = async (data) => {
     setError("")
     console.log(files);
     console.log(data.email);
-
-
     try {
       const res = await authcreator.register(data, files)
       //save to local storge email --- to get verfiy email 
@@ -34,7 +31,7 @@ function Signup() {
         localStorage.setItem("email", data.email);
         const users = await authcreator.getuser()
         if (users) {
-            dispatch(authlogin(users.data))
+          dispatch(authlogin(users.data))
         }
         navigate('/verfiyemail')
       }
@@ -43,80 +40,114 @@ function Signup() {
     }
   }
 
-  const usercreate = async (data)=>{
-      setError("")
-      try {
-        const res = await authuser.register(data)
-        if (res) {
-          localStorage.setItem("useremail", data.email);
-          console.log(res);
-          navigate('/verfiyemail')
-        }
-      } catch (error) {
-        console.log(error);
-        setError(error.response.data.message)
+  const usercreate = async (data) => {
+    setError("")
+    try {
+      const res = await authuser.register(data)
+      if (res) {
+        localStorage.setItem("useremail", data.email);
+        console.log(res);
+        navigate('/verfiyemail')
       }
+    } catch (error) {
+      console.log(error);
+      setError(error.response.data.message)
+    }
   }
   return (
-      <form className="bg-[url('/background.png')] bg-cover bg-center w-full h-252 mt-4" onSubmit={handleSubmit(create)} >
-         {/* your content */}
-         <div className="bg-blue-100 w-1/2 opacity-90 h-full text-center">
-           <div className="relative top-20 space-y-7">
-             <h1 className="text-center text-3xl text-blue-500 font-semibold -mt-4 mr-67">Sign Up</h1>
-             <h1 className="text-black -mt-4 mr-41">Create Account ! Fill the detail</h1>
-             <Input
-               className="w-1/2 py-4 bg-gray-200 border-b-3 border-gray-400 pl-4"
-               placeholder="123@gmail.com"
-             />
-             <Input
-               type={showPassword ? "text" : "password"}
-               className="w-1/2 py-4 bg-gray-200 pl-4 border-b-3 border-gray-400"
-               placeholder="Password"
-             />
-             <button
-               type="button"
-               onClick={() => setShowPassword((prev) => !prev)}
-               className="absolute right-49 -mt-17 mr-3"
-             >
-               {showPassword ? (
-                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
-                   <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12s3.75-7.5 9.75-7.5S21.75 12 21.75 12s-3.75 7.5-9.75 7.5S2.25 12 2.25 12z" />
-                   <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                 </svg>
-               ) : (
-                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
-                   <path strokeLinecap="round" strokeLinejoin="round" d="M3.98 8.223A10.477 10.477 0 002.25 12s3.75 7.5 9.75 7.5a9.72 9.72 0 004.65-1.223M6.228 6.228A9.72 9.72 0 0111.25 4.5c6 0 9.75 7.5 9.75 7.5a10.45 10.45 0 01-2.221 3.772M6.228 6.228L3 3m3.228 3.228L3 3m0 0l18 18" />
-                 </svg>
-               )}
-             </button>
-             <label className='bg-red-20 mr-56'>Upload Profile image:</label>
-             <Input
-             type="file"
-             className="w-1/3 py-2 mr-31 mt-2 bg-gray-200 border-2 border-gray-400 pl-4"
-             />
-             <Input
-               className="w-1/2 py-4 bg-gray-200 border-b-3 border-gray-400 pl-4"
-               placeholder="Your Creator name"
-             />
-             <p className='bg-red-20 text-sm mr-5'>Already have an account? but Email verfity is pending</p>
-             <Button onClick={usercreate} className='-mt-7 mr-77 text-sm font-bold'><a href="/verfiyemail" className='underline'>Click here</a></Button>
-
-             <Textarea
-             placeholder="Enter your Bio"
-             rows={8}
-             className="w-1/2 py-4 bg-gray-200 border-b-3 border-gray-400 pl-4"
-             />
-
-             <Button
-               bgColor="bg-blue-900"
-               className="w-1/2 py-3 text-xl font-meduim hover:rounded-full hover:opacity-80"
-             >
-               Create Account
-             </Button>
-             <p className="-mt-5">Already have an account? <a href="/creatorlogin" className=" hover:text-gray-600 underline">Sign in</a></p>
-           </div>
-         </div>
-       </form>
+    <form className="bg-[url('/background.png')] bg-cover bg-center w-full h-252 mt-4" onSubmit={handleSubmit(create)} >
+      {/* your content */}
+      <div className="bg-blue-100 w-1/2 opacity-90 h-full text-center">
+        <div className="relative top-20 space-y-7">
+          <h1 className="text-center text-3xl text-blue-500 font-semibold -mt-4 mr-67">Sign Up</h1>
+          <h1 className="text-black -mt-4 mr-41">Create Account ! Fill the detail</h1>
+           {error && (
+            <p className="text-red-500 text-base sm:text-lg text-center mb-4">
+              {error}
+            </p>
+          )}
+          <Input err={errors?.email?.message}
+            {...register("email", {
+              required: "Enter your email",
+              validate: {
+                matchPatern: (value) =>
+                  /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value) ||
+                  "Invalid email address",
+              },
+            })}
+            className={`${errors.email ? "border-pink-500 text-pink-600" : "border-gray-300"} w-1/2 py-4 bg-gray-200 border-b-3 border-gray-400 pl-4`}
+            placeholder="123@gmail.com"
+          />
+          <Input err={errors?.password?.message}
+            {...register("password", {
+              required: "Enter your password",
+              validate: {
+                matchPatern: (value) =>
+                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/.test(value) ||
+                  "Password needs 8 length upper, lower, digit & symbol"
+              },
+            })}
+            type={showPassword ? "text" : "password"}
+            className={`${errors.password ? "border-pink-500 text-pink-600" : "border-gray-300"}w-1/2 py-4 bg-gray-200 pl-4 border-b-3 border-gray-400`}
+            placeholder="Password"
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword((prev) => !prev)}
+            className="absolute right-49 -mt-17 mr-3"
+          >
+            {showPassword ? (
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12s3.75-7.5 9.75-7.5S21.75 12 21.75 12s-3.75 7.5-9.75 7.5S2.25 12 2.25 12z" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.98 8.223A10.477 10.477 0 002.25 12s3.75 7.5 9.75 7.5a9.72 9.72 0 004.65-1.223M6.228 6.228A9.72 9.72 0 0111.25 4.5c6 0 9.75 7.5 9.75 7.5a10.45 10.45 0 01-2.221 3.772M6.228 6.228L3 3m3.228 3.228L3 3m0 0l18 18" />
+              </svg>
+            )}
+          </button>
+          <label className='bg-red-20 mr-56'>Upload Profile image:</label>
+          <Input onClick={handleChange}
+            type="file"
+            className="w-1/3 py-2 mr-31 mt-2 bg-gray-200 border-2 border-gray-400 pl-4"
+          />
+          <Input err={errors?.creatorname?.message}
+            {...register("creatorname", {
+              required: "Enter your Creator",
+              maxLength: {
+                value: 30,
+                message: "Username cannot exceed 30 characters",
+              }, minLength: { value: 3, message: "Username cannot less than 3 characters", }
+            })}
+            className={`${errors.creatorname ? "border-pink-500 text-pink-600" : "border-gray-300"} w-1/2 py-4 bg-gray-200 border-b-3 border-gray-400 pl-4`}
+            placeholder="Your Creator name"
+          />
+          <p className='bg-red-20 text-sm mr-5'>Already have an account? but Email verfity is pending</p>
+          <Button onClick={usercreate} className='-mt-7 mr-77 text-sm font-bold'>
+            <a href="/verfiyemail" className='underline'>Click here</a>
+          </Button>
+          <Textarea err={errors?.bio?.message}
+            {...register("bio", {
+              required: "Enter your Bio",
+              maxLength: {
+                value: 1000,
+                message: "Bio cannot exceed 1000 characters",
+              }, minLength: { value: 20, message: "Bio cannot less than 20 characters", }
+            })}
+            placeholder="Enter your Bio"
+            rows={8}
+            className={`${errors.bio ? "border-pink-500 text-pink-600" : "border-gray-300"} w-1/2 py-4 bg-gray-200 border-b-3 border-gray-400 pl-4`}
+          />
+          <Button
+            bgColor="bg-blue-900"
+            className="w-1/2 py-3 text-xl font-meduim hover:rounded-full hover:opacity-80">
+            Create Account
+          </Button>
+          <p className="-mt-5">Already have an account? <a href="/creatorlogin" className=" hover:text-gray-600 underline">Sign in</a></p>
+        </div>
+      </div>
+    </form>
   );
 }
 

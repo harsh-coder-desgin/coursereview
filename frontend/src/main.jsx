@@ -7,7 +7,6 @@ import { AddCourse, AllCourse, AllCreator, CourseDetail, CreatorLogin, CreatorPr
   EditCourse, ExploreCourse, Home, ReadReview, SearchResult, Setting } from './pages/indexpage.js'
 import store from './store/store.js'
 import CreatorLayout from './layout/CreatorLayout.jsx'
-import Dashboard from './pages/Dashboard.jsx'
 import App from './App.jsx'
 import './index.css'
 
