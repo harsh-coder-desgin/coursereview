@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import CourseCard from '../components/CourseCard';
+import { CourseCard } from '../components/index.js';
 
 function SearchResult() {
   const [courses, SetCourses] = useState([

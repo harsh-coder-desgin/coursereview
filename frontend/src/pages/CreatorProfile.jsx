@@ -1,5 +1,5 @@
 import { useState } from "react";
-import CourseCard from "../components/CourseCard";
+import { CourseCard } from "../components/index.js";
 
 const CreatorProfile = () => {
   const [activeTab, setActiveTab] = useState("courses");

@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import CreatorHeading from '../components/CreatorHeading'
-import { Button } from '../components'
-import RatingChart from '../components/Chart/RatingChart'
-import OverReviewChart from '../components/Chart/OverReviewChart';
-import CourseRatingChart from '../components/Chart/CourseRatingChart';
+import { Button  ,CreatorHeading, RatingChart, OverReviewChart ,CourseRatingChart } from '../components/index.js'
 import authcourse from '../auth/authcourse'
 
 function Dashboard() {

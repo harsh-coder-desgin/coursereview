@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import CreatorHeading from '../components/CreatorHeading'
 import { useForm } from "react-hook-form"
-import { Button, Input, Textarea } from '../components'
+import { Button, Input, Textarea ,CreatorHeading } from '../components/index.js'
 import { useSelector } from 'react-redux'
 import authcreator from '../auth/authcreator'
 function Setting() {

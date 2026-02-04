@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams } from "react-router-dom";
 import authuser from "../auth/authuser"
+
 function CourseDetail() {
   const { id } = useParams();
   const [courses, SetCourses] = useState()

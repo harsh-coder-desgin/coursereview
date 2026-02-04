@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
-import CourseCard from '../components/CourseCard';
-
+import { CourseCard } from '../components/index.js';
 
 function Home() {
   const [courses, SetCourses] = useState([

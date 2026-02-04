@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import CourseCard from '../components/CourseCard'
-import { Button } from '../components'
+import { CourseCard, Button } from '../components/index.js'
 import { Link } from 'react-router-dom'
 import authuser from '../auth/authuser'
 function ExploreCourse() {
