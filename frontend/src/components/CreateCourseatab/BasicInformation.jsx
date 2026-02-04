@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
-import Input from '../Input'
-import Button from '../Button'
+import { Input, Button, Select } from '../index.js'
 import { useForm } from "react-hook-form"
-import Select from '../Select'
 import { useSelector, useDispatch } from 'react-redux'
 import { addcoursedata, changetab } from '../../store/addCourseSlice'
 import authcourse from '../../auth/authcourse'

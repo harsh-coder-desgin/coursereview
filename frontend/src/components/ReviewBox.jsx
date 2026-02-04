@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import Button from './Button'
-import RatingChart from './Chart/RatingChart';
+import { Button , RatingChart} from './index.js';
 
 function ReviewBox() {
   const [ratingtime, SetRatingtime] = useState("Year")

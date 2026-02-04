@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import CreatorHeading from './CreatorHeading';
-import RecentnewReview from './RecentnewReview';
-import OverReviewChart from './Chart/OverReviewChart';
-import ReviewBox from './ReviewBox';
+import { CreatorHeading ,RecentnewReview , OverReviewChart ,ReviewBox} from './index.js';
 import { useDispatch ,useSelector } from 'react-redux'
 import authcourse from '../auth/authcourse'
 import { detailcourse } from '../store/courseAuthSlice';

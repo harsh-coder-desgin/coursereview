@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import authcreator from '../auth/authcreator'
+
 export default function VerfiyAuth({ children }) {
 
     const navigate = useNavigate();

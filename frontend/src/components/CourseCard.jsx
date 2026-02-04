@@ -1,6 +1,6 @@
 import React from 'react'
-import Button from './Button'
-import StarRating from './StarComponent'
+import { Button, StarRating } from '../components/index.js'
+
 function CourseCard({ course }) {
     return (
         <div className='w-84 bg-hite p3'>

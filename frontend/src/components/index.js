@@ -16,7 +16,7 @@ import RecentnewReview from "./RecentnewReview"
 import ReviewBox from './ReviewBox'
 import Select from './Select'
 import Signup from './Signup'
-import StarComponent from './StarComponent'
+import StarRating from './StarComponent'
 import UserAuthLayout from './UserAuthLayout'
 import VerfiyAuth from './VerfiyAuth'
 import Verfiyemail from "./Verfiyemail"
@@ -49,7 +49,7 @@ export{
     ReviewBox,
     Select,
     Signup,
-    StarComponent,
+    StarRating,
     UserAuthLayout,
     VerfiyAuth,
     Verfiyemail,

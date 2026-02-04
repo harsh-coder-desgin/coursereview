@@ -1,8 +1,7 @@
 import React, { useState, useRef } from 'react'
 import { Link, useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
-import Input from './Input';
-import Button from './Button';
+import { Input, Button } from './index.js';
 import authcreator from "../auth/authcreator"
 import authuser from "../auth/authuser"
 function Verfiyemail() {

@@ -2,6 +2,7 @@ import React from 'react'
 import authuser from "../../auth/authuser"
 import { useDispatch } from 'react-redux';
 import { userLogout } from '../../store/userAuthSlice';
+
 function UserLogoutbtn() {
   const dispatch = useDispatch()
   const logout = async() => {

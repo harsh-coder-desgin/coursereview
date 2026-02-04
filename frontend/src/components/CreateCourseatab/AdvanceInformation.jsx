@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Input from '../Input'
-import Button from '../Button'
-import Textarea from '../Textarea'
+import { Input, Button, Textarea } from '../index.js'
 import { useForm } from "react-hook-form"
 import { useDispatch } from 'react-redux'
 import { addcoursedata, changetab } from '../../store/addCourseSlice'

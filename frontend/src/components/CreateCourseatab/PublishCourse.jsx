@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import Input from '../Input'
-import Button from '../Button'
+import { Input, Button } from '../index.js'
 import { useDispatch } from 'react-redux'
 import { changetab } from '../../store/addCourseSlice'
 import authcourse from '../../auth/authcourse'
+
 function PublishCourse() {
   const dispatch = useDispatch()
   const [message, setMessage] = useState({ text: "", type: "" });

@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
-import { Button, Container, Input } from '../index'
-import { Logo } from '../index'
-
+import { Button, Container, Input, Logo } from '../index.js'
 
 function UserHeader() {
   const navigate = useNavigate();

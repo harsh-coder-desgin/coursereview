@@ -1,6 +1,4 @@
-import Button from '../Button'
-import Input from '../Input'
-import Select from '../Select'
+import { Input, Button, Select } from '../index.js'
 import { useForm } from "react-hook-form"
 import { addcoursedata, changetab } from '../../store/addCourseSlice'
 import { useDispatch } from 'react-redux'

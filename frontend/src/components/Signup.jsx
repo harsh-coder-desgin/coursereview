@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom"
-import { Input, Button, Textarea } from "./index"
+import { Input, Button, Textarea } from "./index.js"
 import { useForm } from "react-hook-form"
 import { useDispatch } from 'react-redux'
 import authcreator from '../auth/authcreator'
